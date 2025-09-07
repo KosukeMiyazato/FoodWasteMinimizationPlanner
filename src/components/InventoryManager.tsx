@@ -58,11 +58,9 @@ const InventoryManager: React.FC<InventoryManagerProps> = ({ inventory, setInven
     <div className="space-y-6">
       {/* Header with Stats */}
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-green-100">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800">{t('inventory.title')}</h2>
-            <p className="text-gray-600">{t('inventory.subtitle')}</p>
-          </div>
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('inventory.title')}</h2>
+          <p className="text-gray-600 mb-4">{t('inventory.subtitle')}</p>
           <div className="flex items-center gap-4">
             {urgentItems > 0 && (
               <div className="flex items-center gap-1 md:gap-2 bg-red-100 px-2 md:px-4 py-2 rounded-xl">
