@@ -109,10 +109,11 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
           </div>
           <button
             onClick={() => setShowAddForm(true)}
-            className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200"
+            className="flex items-center gap-1 md:gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 md:px-6 py-3 rounded-xl font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200 text-sm md:text-base"
           >
             <Plus className="w-5 h-5" />
-            {t('recipes.addRecipe')}
+            <span className="hidden sm:inline">{t('recipes.addRecipe')}</span>
+            <span className="sm:hidden">追加</span>
           </button>
         </div>
 
@@ -134,7 +135,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                       placeholder={t('recipes.recipeName')}
                       value={newRecipe.name}
                       onChange={(e) => setNewRecipe({ ...newRecipe, name: e.target.value })}
-                      className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                     />
                   </div>
                   <div>
@@ -146,7 +147,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                       placeholder={t('recipes.servings')}
                       value={newRecipe.servings}
                       onChange={(e) => setNewRecipe({ ...newRecipe, servings: Number(e.target.value) })}
-                      className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                     />
                   </div>
                   <div>
@@ -158,7 +159,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                       placeholder={t('recipes.prepTime')}
                       value={newRecipe.prepTime}
                       onChange={(e) => setNewRecipe({ ...newRecipe, prepTime: Number(e.target.value) })}
-                      className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                     />
                   </div>
                   <div>
@@ -168,7 +169,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                     <select
                       value={newRecipe.category}
                       onChange={(e) => setNewRecipe({ ...newRecipe, category: e.target.value as any })}
-                      className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                     >
                       <option value="breakfast">{t('recipeCategory.breakfast')}</option>
                       <option value="lunch">{t('recipeCategory.lunch')}</option>
@@ -209,19 +210,19 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                         placeholder={t('recipes.ingredientName')}
                         value={ingredient.name}
                         onChange={(e) => updateIngredient(index, 'name', e.target.value)}
-                        className="px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        className="px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                       />
                       <input
                         type="number"
                         placeholder={t('inventory.quantity')}
                         value={ingredient.quantity}
                         onChange={(e) => updateIngredient(index, 'quantity', Number(e.target.value))}
-                        className="px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        className="px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                       />
                       <select
                         value={ingredient.unit}
                         onChange={(e) => updateIngredient(index, 'unit', e.target.value)}
-                        className="px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        className="px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                       >
                         <option value="pieces">{t('unit.pieces')}</option>
                         <option value="g">{t('unit.g')}</option>
@@ -231,7 +232,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                       </select>
                       <button
                         onClick={() => removeIngredient(index)}
-                        className="text-red-500 hover:text-red-700 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors"
+                        className="text-red-500 hover:text-red-700 px-3 py-2 rounded-lg hover:bg-red-50 transition-colors min-w-[44px] flex items-center justify-center"
                         disabled={newRecipe.ingredients.length === 1}
                       >
                         <Trash2 className="w-4 h-4" />
@@ -257,7 +258,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                         ...newRecipe, 
                         nutrition: { ...newRecipe.nutrition, calories: Number(e.target.value) }
                       })}
-                      className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                     />
                   </div>
                   <div>
@@ -272,7 +273,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                         ...newRecipe, 
                         nutrition: { ...newRecipe.nutrition, protein: Number(e.target.value) }
                       })}
-                      className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                     />
                   </div>
                   <div>
@@ -287,7 +288,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                         ...newRecipe, 
                         nutrition: { ...newRecipe.nutrition, carbs: Number(e.target.value) }
                       })}
-                      className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                     />
                   </div>
                   <div>
@@ -302,23 +303,23 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
                         ...newRecipe, 
                         nutrition: { ...newRecipe.nutrition, fat: Number(e.target.value) }
                       })}
-                      className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Form Actions */}
-              <div className="flex gap-3 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <button
                   onClick={addRecipe}
-                  className="bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700 transition-colors font-medium"
+                  className="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition-colors font-medium"
                 >
                   {t('recipes.addRecipe')}
                 </button>
                 <button
                   onClick={() => setShowAddForm(false)}
-                  className="bg-gray-300 text-gray-700 px-6 py-2 rounded-xl hover:bg-gray-400 transition-colors font-medium"
+                  className="bg-gray-300 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-400 transition-colors font-medium"
                 >
                   {t('common.cancel')}
                 </button>
@@ -327,12 +328,12 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
           </div>
         )}
         {/* Category Filter */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1 md:gap-2">
           {categories.map(category => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-xl font-medium transition-all duration-300 capitalize ${
+              className={`px-2 md:px-4 py-2 rounded-xl font-medium transition-all duration-300 capitalize text-sm md:text-base ${
                 selectedCategory === category
                   ? 'bg-green-600 text-white shadow-lg shadow-green-200'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'

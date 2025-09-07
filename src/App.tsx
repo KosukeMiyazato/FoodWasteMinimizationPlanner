@@ -93,21 +93,21 @@ function App() {
       
       <div className="container mx-auto px-4 py-8">
         {/* Navigation Tabs */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-8 bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-lg border border-green-100">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1 md:gap-2 mb-8 bg-white/80 backdrop-blur-sm rounded-2xl p-2 shadow-lg border border-green-100">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-300 text-center ${
+                className={`flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2 px-2 md:px-4 py-3 rounded-xl font-medium transition-all duration-300 text-center min-h-[60px] ${
                   activeTab === tab.id
                     ? 'bg-gradient-to-r from-green-600 to-emerald-600 text-white shadow-lg shadow-green-200'
                     : 'text-gray-600 hover:bg-green-50 hover:text-green-700'
                 }`}
               >
-                <Icon className="w-5 h-5" />
-                <span className="text-sm md:text-base">{tab.label}</span>
+                <Icon className="w-4 h-4 md:w-5 md:h-5" />
+                <span className="text-xs md:text-base leading-tight">{tab.label}</span>
               </button>
             );
           })}
