@@ -362,7 +362,7 @@ const OptimizationEngine: React.FC<OptimizationEngineProps> = ({
                       <div className="space-y-2 text-sm">
                         <div><strong>食材数:</strong> ~100項目まで対応</div>
                         <div><strong>レシピ数:</strong> ~50種類まで対応</div>
-                        <div><strong>計算時間:</strong> < 2秒（典型例）</div>
+                        <div><strong>計算時間:</strong> &lt; 2秒（典型例）</div>
                         <div><strong>最適性:</strong> 95%以上の近似精度</div>
                       </div>
                     </div>
