@@ -25,7 +25,7 @@ const Header: React.FC = () => {
               <Globe className="w-4 h-4 text-green-100" />
               <button
                 onClick={() => setLanguage('en')}
-                className={`px-2 py-1 rounded-lg text-sm font-medium transition-all ${
+                className={`px-2 py-1 rounded-lg text-sm font-medium transition-all min-w-[40px] flex items-center justify-center ${
                   language === 'en' 
                     ? 'bg-white text-green-600' 
                     : 'text-green-100 hover:bg-white/20'
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
               </button>
               <button
                 onClick={() => setLanguage('ja')}
-                className={`px-2 py-1 rounded-lg text-sm font-medium transition-all ${
+                className={`px-2 py-1 rounded-lg text-sm font-medium transition-all min-w-[40px] flex items-center justify-center ${
                   language === 'ja' 
                     ? 'bg-white text-green-600' 
                     : 'text-green-100 hover:bg-white/20'
@@ -59,7 +59,7 @@ const Header: React.FC = () => {
             <Globe className="w-4 h-4 text-green-100" />
             <button
               onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded text-xs font-medium transition-all min-w-[32px] ${
+              className={`px-2 py-1 rounded text-xs font-medium transition-all min-w-[32px] flex items-center justify-center ${
                 language === 'en' 
                   ? 'bg-white text-green-600' 
                   : 'text-green-100 hover:bg-white/20'
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
             </button>
             <button
               onClick={() => setLanguage('ja')}
-              className={`px-1.5 py-1 rounded text-xs font-medium transition-all min-w-[32px] ${
+              className={`px-1.5 py-1 rounded text-xs font-medium transition-all min-w-[32px] flex items-center justify-center ${
                 language === 'ja' 
                   ? 'bg-white text-green-600' 
                   : 'text-green-100 hover:bg-white/20'
