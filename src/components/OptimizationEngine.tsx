@@ -474,7 +474,6 @@ const OptimizationEngine: React.FC<OptimizationEngineProps> = ({
             </div>
           )}
       </div>
-      </div>
     </div>
   );
 };
