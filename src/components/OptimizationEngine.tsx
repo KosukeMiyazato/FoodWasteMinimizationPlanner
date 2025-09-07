@@ -109,7 +109,7 @@ const OptimizationEngine: React.FC<OptimizationEngineProps> = ({
                     value={constraints.maxDistinctDishes || ''}
                     onChange={(e) => setConstraints(prev => ({ ...prev, maxDistinctDishes: Number(e.target.value) }))}
                     className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  />
+                  className="w-full px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
                   <p className="text-xs text-gray-500 mt-1">{t('optimize.maxDishesDesc')}</p>
                 </div>
               </div>
@@ -148,7 +148,7 @@ const OptimizationEngine: React.FC<OptimizationEngineProps> = ({
               <button
                 onClick={runOptimization}
                 disabled={isOptimizing || inventory.length === 0 || recipes.length === 0}
-                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl font-bold text-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-4 rounded-xl font-bold text-base md:text-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 min-h-[56px]"
               >
                 {isOptimizing ? (
                   <>
