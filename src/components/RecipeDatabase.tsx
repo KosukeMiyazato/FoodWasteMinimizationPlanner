@@ -326,6 +326,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
               </div>
             </div>
           </div>
+        )}
       </div>
 
       {/* Category Filter */}
