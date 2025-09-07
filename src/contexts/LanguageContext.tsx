@@ -201,6 +201,7 @@ const translations = {
     // Recipes
     'recipes.title': 'レシピデータベース',
     'recipes.subtitle': 'レシピを管理し、材料の在庫状況を確認します',
+    'recipes.basicInfo': '基本情報',
     'recipes.addRecipe': 'レシピ追加',
     'recipes.addNewRecipe': '新しいレシピを追加',
     'recipes.recipeName': 'レシピ名',

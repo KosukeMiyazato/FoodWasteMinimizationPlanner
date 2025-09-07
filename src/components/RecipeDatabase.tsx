@@ -122,41 +122,64 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
             <h3 className="text-lg font-semibold mb-4">{t('recipes.addNewRecipe')}</h3>
             <div className="space-y-4">
               {/* Basic Info */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <input
-                  type="text"
-                  placeholder={t('recipes.recipeName')}
-                  value={newRecipe.name}
-                  onChange={(e) => setNewRecipe({ ...newRecipe, name: e.target.value })}
-                  className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                />
-                <input
-                  type="number"
-                  placeholder={t('recipes.servings')}
-                  value={newRecipe.servings}
-                  onChange={(e) => setNewRecipe({ ...newRecipe, servings: Number(e.target.value) })}
-                  className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                />
-                <input
-                  type="number"
-                  placeholder={t('recipes.prepTime')}
-                  value={newRecipe.prepTime}
-                  onChange={(e) => setNewRecipe({ ...newRecipe, prepTime: Number(e.target.value) })}
-                  className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                />
-                <select
-                  value={newRecipe.category}
-                  onChange={(e) => setNewRecipe({ ...newRecipe, category: e.target.value as any })}
-                  className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                >
-                  <option value="breakfast">{t('recipeCategory.breakfast')}</option>
-                  <option value="lunch">{t('recipeCategory.lunch')}</option>
-                  <option value="dinner">{t('recipeCategory.dinner')}</option>
-                  <option value="main">{t('recipeCategory.main')}</option>
-                  <option value="soup">{t('recipeCategory.soup')}</option>
-                  <option value="snack">{t('recipeCategory.snack')}</option>
-                  <option value="dessert">{t('recipeCategory.dessert')}</option>
-                </select>
+              <div>
+                <h4 className="font-medium text-gray-700 mb-3">{t('recipes.basicInfo')}</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      {t('recipes.recipeName')}
+                    </label>
+                    <input
+                      type="text"
+                      placeholder={t('recipes.recipeName')}
+                      value={newRecipe.name}
+                      onChange={(e) => setNewRecipe({ ...newRecipe, name: e.target.value })}
+                      className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      {t('recipes.servings')}
+                    </label>
+                    <input
+                      type="number"
+                      placeholder={t('recipes.servings')}
+                      value={newRecipe.servings}
+                      onChange={(e) => setNewRecipe({ ...newRecipe, servings: Number(e.target.value) })}
+                      className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      {t('recipes.prepTime')}
+                    </label>
+                    <input
+                      type="number"
+                      placeholder={t('recipes.prepTime')}
+                      value={newRecipe.prepTime}
+                      onChange={(e) => setNewRecipe({ ...newRecipe, prepTime: Number(e.target.value) })}
+                      className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      {t('inventory.category')}
+                    </label>
+                    <select
+                      value={newRecipe.category}
+                      onChange={(e) => setNewRecipe({ ...newRecipe, category: e.target.value as any })}
+                      className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    >
+                      <option value="breakfast">{t('recipeCategory.breakfast')}</option>
+                      <option value="lunch">{t('recipeCategory.lunch')}</option>
+                      <option value="dinner">{t('recipeCategory.dinner')}</option>
+                      <option value="main">{t('recipeCategory.main')}</option>
+                      <option value="soup">{t('recipeCategory.soup')}</option>
+                      <option value="snack">{t('recipeCategory.snack')}</option>
+                      <option value="dessert">{t('recipeCategory.dessert')}</option>
+                    </select>
+                  </div>
+                </div>
               </div>
 
               {/* Ingredients */}
