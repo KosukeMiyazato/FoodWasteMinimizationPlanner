@@ -113,7 +113,7 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
           >
             <Plus className="w-5 h-5" />
             <span className="hidden sm:inline">{t('recipes.addRecipe')}</span>
-            <span className="sm:hidden">追加</span>
+            <span className="sm:hidden">{t('common.add')}</span>
           </button>
         </div>
 

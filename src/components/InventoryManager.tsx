@@ -76,7 +76,7 @@ const InventoryManager: React.FC<InventoryManagerProps> = ({ inventory, setInven
             >
               <Plus className="w-5 h-5" />
               <span className="hidden sm:inline">{t('inventory.addItem')}</span>
-              <span className="sm:hidden">追加</span>
+              <span className="sm:hidden">{t('common.add')}</span>
             </button>
           </div>
         </div>
