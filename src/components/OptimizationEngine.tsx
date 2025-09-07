@@ -108,8 +108,8 @@ const OptimizationEngine: React.FC<OptimizationEngineProps> = ({
                     type="number"
                     value={constraints.maxDistinctDishes || ''}
                     onChange={(e) => setConstraints(prev => ({ ...prev, maxDistinctDishes: Number(e.target.value) }))}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                  className="w-full px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
+                    className="w-full px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
+                  />
                   <p className="text-xs text-gray-500 mt-1">{t('optimize.maxDishesDesc')}</p>
                 </div>
               </div>
