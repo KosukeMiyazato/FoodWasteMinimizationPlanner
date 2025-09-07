@@ -165,12 +165,53 @@ const OptimizationEngine: React.FC<OptimizationEngineProps> = ({
           </div>
         </div>
 
-        {/* Mathematical Model Details */}
-        </div>
-
-        {/* Mathematical Model Details */}
-        <div className="lg:col-span-3">
+        {/* Quick Stats */}
+        <div className="space-y-4">
           <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200">
+            <div className="flex items-center gap-3 mb-4">
+              <Activity className="w-5 h-5 text-green-600" />
+              <h4 className="font-bold text-gray-800">{t('optimize.inventoryStatus')}</h4>
+            </div>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-600">{t('optimize.totalItems')}</span>
+                <span className="font-semibold">{inventory.length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">{t('optimize.urgentItems')}</span>
+                <span className="font-semibold text-red-600">{urgentItems.length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">{t('optimize.availableRecipes')}</span>
+                <span className="font-semibold">{recipes.length}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200">
+            <div className="flex items-center gap-3 mb-4">
+              <Target className="w-5 h-5 text-blue-600" />
+              <h4 className="font-bold text-gray-800">{t('optimize.goals')}</h4>
+            </div>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-center gap-2">
+                <TrendingDown className="w-4 h-4 text-green-500" />
+                <span>{t('optimize.minimizeWaste')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Utensils className="w-4 h-4 text-blue-500" />
+                <span>{t('optimize.prioritizeUrgent')}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Activity className="w-4 h-4 text-purple-500" />
+                <span>{t('optimize.meetNutrition')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Mathematical Model Details */}
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200">
           <button
             onClick={() => setShowMathDetails(!showMathDetails)}
             className="flex items-center gap-2 text-green-600 hover:text-green-700 font-medium mb-4"
@@ -432,53 +473,7 @@ const OptimizationEngine: React.FC<OptimizationEngineProps> = ({
               </div>
             </div>
           )}
-          </div>
-        </div>
-
-        {/* Quick Stats */}
-        <div className="space-y-4">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200">
-            <div className="flex items-center gap-3 mb-4">
-              <Activity className="w-5 h-5 text-green-600" />
-              <h4 className="font-bold text-gray-800">{t('optimize.inventoryStatus')}</h4>
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-600">{t('optimize.totalItems')}</span>
-                <span className="font-semibold">{inventory.length}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">{t('optimize.urgentItems')}</span>
-                <span className="font-semibold text-red-600">{urgentItems.length}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">{t('optimize.availableRecipes')}</span>
-                <span className="font-semibold">{recipes.length}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200">
-            <div className="flex items-center gap-3 mb-4">
-              <Target className="w-5 h-5 text-blue-600" />
-              <h4 className="font-bold text-gray-800">{t('optimize.goals')}</h4>
-            </div>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-2">
-                <TrendingDown className="w-4 h-4 text-green-500" />
-                <span>{t('optimize.minimizeWaste')}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Utensils className="w-4 h-4 text-blue-500" />
-                <span>{t('optimize.prioritizeUrgent')}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Activity className="w-4 h-4 text-purple-500" />
-                <span>{t('optimize.meetNutrition')}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
       </div>
     </div>
   );
