@@ -192,7 +192,7 @@ const OptimizationEngine: React.FC<OptimizationEngineProps> = ({
                   <h4 className="font-bold text-gray-800 mb-2">Key Constraints</h4>
                   <div className="space-y-2 text-sm">
                     <code className="bg-white p-2 rounded border block">
-                      Σ(a_{{i,r}} × x_r) + w_i = stock_i  ∀i (inventory balance)
+                      Σ(a_{i,r} × x_r) + w_i = stock_i  ∀i (inventory balance)
                     </code>
                     <code className="bg-white p-2 rounded border block">
                       Σ(x_r) ≥ min_servings (demand constraint)
