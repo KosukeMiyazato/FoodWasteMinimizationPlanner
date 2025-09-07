@@ -21,11 +21,11 @@ const Header: React.FC = () => {
           
           <div className="hidden md:flex items-center gap-6">
             {/* Language Switcher */}
-            <div className="flex items-center gap-2 bg-white/20 rounded-xl p-2">
+            <div className="flex items-center gap-1 bg-white/20 rounded-xl p-2">
               <Globe className="w-4 h-4 text-green-100" />
               <button
                 onClick={() => setLanguage('en')}
-                className={`px-3 py-1 rounded-lg text-sm font-medium transition-all ${
+                className={`px-2 py-1 rounded-lg text-sm font-medium transition-all ${
                   language === 'en' 
                     ? 'bg-white text-green-600' 
                     : 'text-green-100 hover:bg-white/20'
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
               </button>
               <button
                 onClick={() => setLanguage('ja')}
-                className={`px-3 py-1 rounded-lg text-sm font-medium transition-all ${
+                className={`px-2 py-1 rounded-lg text-sm font-medium transition-all ${
                   language === 'ja' 
                     ? 'bg-white text-green-600' 
                     : 'text-green-100 hover:bg-white/20'
@@ -55,11 +55,11 @@ const Header: React.FC = () => {
           </div>
           
           {/* Mobile Language Switcher */}
-          <div className="md:hidden flex items-center gap-2 bg-white/20 rounded-xl p-2">
+          <div className="md:hidden flex items-center gap-1 bg-white/20 rounded-xl p-1.5">
             <Globe className="w-4 h-4 text-green-100" />
             <button
               onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded text-xs font-medium transition-all ${
+              className={`px-2 py-1 rounded text-xs font-medium transition-all min-w-[32px] ${
                 language === 'en' 
                   ? 'bg-white text-green-600' 
                   : 'text-green-100 hover:bg-white/20'
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
             </button>
             <button
               onClick={() => setLanguage('ja')}
-              className={`px-2 py-1 rounded text-xs font-medium transition-all ${
+              className={`px-1.5 py-1 rounded text-xs font-medium transition-all min-w-[32px] ${
                 language === 'ja' 
                   ? 'bg-white text-green-600' 
                   : 'text-green-100 hover:bg-white/20'

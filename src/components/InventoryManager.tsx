@@ -58,24 +58,23 @@ const InventoryManager: React.FC<InventoryManagerProps> = ({ inventory, setInven
     <div className="space-y-6">
       {/* Header with Stats */}
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-green-100">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800">{t('inventory.title')}</h2>
-            <p className="text-gray-600">{t('inventory.subtitle')}</p>
-          </div>
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('inventory.title')}</h2>
+          <p className="text-gray-600 mb-4">{t('inventory.subtitle')}</p>
           <div className="flex items-center gap-4">
             {urgentItems > 0 && (
-              <div className="flex items-center gap-2 bg-red-100 px-4 py-2 rounded-xl">
+              <div className="flex items-center gap-1 md:gap-2 bg-red-100 px-2 md:px-4 py-2 rounded-xl">
                 <AlertTriangle className="w-5 h-5 text-red-500" />
-                <span className="text-red-700 font-medium">{urgentItems} {t('inventory.urgent')}</span>
+                <span className="text-red-700 font-medium text-sm md:text-base">{urgentItems} {t('inventory.urgent')}</span>
               </div>
             )}
             <button
               onClick={() => setShowAddForm(true)}
-              className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200"
+              className="flex items-center gap-1 md:gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 md:px-6 py-3 rounded-xl font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200 text-sm md:text-base"
             >
               <Plus className="w-5 h-5" />
-              {t('inventory.addItem')}
+              <span className="hidden sm:inline">{t('inventory.addItem')}</span>
+              <span className="sm:hidden">{t('common.add')}</span>
             </button>
           </div>
         </div>
@@ -90,19 +89,19 @@ const InventoryManager: React.FC<InventoryManagerProps> = ({ inventory, setInven
                 placeholder={t('inventory.itemName')}
                 value={newItem.name}
                 onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-                className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
               />
               <input
                 type="number"
                 placeholder={t('inventory.quantity')}
                 value={newItem.quantity}
                 onChange={(e) => setNewItem({ ...newItem, quantity: Number(e.target.value) })}
-                className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
               />
               <select
                 value={newItem.unit}
                 onChange={(e) => setNewItem({ ...newItem, unit: e.target.value })}
-                className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
               >
                 <option value="pieces">{t('unit.pieces')}</option>
                 <option value="g">{t('unit.g')}</option>
@@ -113,7 +112,7 @@ const InventoryManager: React.FC<InventoryManagerProps> = ({ inventory, setInven
               <select
                 value={newItem.category}
                 onChange={(e) => setNewItem({ ...newItem, category: e.target.value as any })}
-                className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
               >
                 <option value="vegetables">{t('category.vegetables')}</option>
                 <option value="meat">{t('category.meat')}</option>
@@ -127,19 +126,19 @@ const InventoryManager: React.FC<InventoryManagerProps> = ({ inventory, setInven
                 placeholder={t('inventory.daysLeft')}
                 value={newItem.daysLeft}
                 onChange={(e) => setNewItem({ ...newItem, daysLeft: Number(e.target.value) })}
-                className="px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="px-3 md:px-4 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent text-base"
               />
             </div>
-            <div className="flex gap-3 mt-4">
+            <div className="flex flex-col sm:flex-row gap-3 mt-4">
               <button
                 onClick={addItem}
-                className="bg-green-600 text-white px-6 py-2 rounded-xl hover:bg-green-700 transition-colors"
+                className="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition-colors font-medium"
               >
                 {t('inventory.addItem')}
               </button>
               <button
                 onClick={() => setShowAddForm(false)}
-                className="bg-gray-300 text-gray-700 px-6 py-2 rounded-xl hover:bg-gray-400 transition-colors"
+                className="bg-gray-300 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-400 transition-colors font-medium"
               >
                 {t('common.cancel')}
               </button>
