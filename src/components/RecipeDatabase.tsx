@@ -102,19 +102,19 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
     <div className="space-y-6">
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-green-100">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800">{t('recipes.title')}</h2>
-            <p className="text-gray-600">{t('recipes.subtitle')}</p>
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-gray-800 mb-2">{t('recipes.title')}</h2>
+          <p className="text-gray-600 mb-4">{t('recipes.subtitle')}</p>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setShowAddForm(true)}
+              className="flex items-center gap-1 md:gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 md:px-6 py-3 rounded-xl font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200 text-sm md:text-base"
+            >
+              <Plus className="w-5 h-5" />
+              <span className="hidden sm:inline">{t('recipes.addRecipe')}</span>
+              <span className="sm:hidden">{t('common.add')}</span>
+            </button>
           </div>
-          <button
-            onClick={() => setShowAddForm(true)}
-            className="flex items-center gap-1 md:gap-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 md:px-6 py-3 rounded-xl font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200 text-sm md:text-base"
-          >
-            <Plus className="w-5 h-5" />
-            <span className="hidden sm:inline">{t('recipes.addRecipe')}</span>
-            <span className="sm:hidden">{t('common.add')}</span>
-          </button>
         </div>
 
         {/* Add Recipe Form */}
@@ -326,8 +326,10 @@ const RecipeDatabase: React.FC<RecipeDatabaseProps> = ({ recipes, setRecipes, in
               </div>
             </div>
           </div>
-        )}
-        {/* Category Filter */}
+      </div>
+
+      {/* Category Filter */}
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-green-100">
         <div className="flex flex-wrap gap-1 md:gap-2">
           {categories.map(category => (
             <button
