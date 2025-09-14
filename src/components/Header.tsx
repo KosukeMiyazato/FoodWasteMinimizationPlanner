@@ -1,9 +1,11 @@
 import React from 'react';
-import { Leaf, TrendingDown, Globe } from 'lucide-react';
+import { Leaf, TrendingDown, Globe, LogOut, User } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
+  const { user, logout, isAuthenticated } = useAuth();
 
   return (
     <header className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white shadow-xl">
@@ -19,7 +21,7 @@ const Header: React.FC = () => {
             </div>
           </div>
           
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-4">
             {/* Language Switcher */}
             <div className="flex items-center gap-1 bg-white/20 rounded-xl p-2">
               <Globe className="w-4 h-4 text-green-100" />
@@ -45,6 +47,23 @@ const Header: React.FC = () => {
               </button>
             </div>
             
+            {/* User Menu */}
+            {isAuthenticated && user && (
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 bg-white/20 rounded-xl px-3 py-2">
+                  <User className="w-4 h-4 text-green-100" />
+                  <span className="text-green-100 text-sm">{user.email}</span>
+                </div>
+                <button
+                  onClick={logout}
+                  className="flex items-center gap-2 bg-white/20 rounded-xl px-3 py-2 hover:bg-white/30 transition-colors"
+                >
+                  <LogOut className="w-4 h-4 text-green-100" />
+                  <span className="text-green-100 text-sm">ログアウト</span>
+                </button>
+              </div>
+            )}
+            
             <div className="text-center">
               <div className="flex items-center gap-2 text-green-100">
                 <TrendingDown className="w-5 h-5" />
@@ -55,7 +74,16 @@ const Header: React.FC = () => {
           </div>
           
           {/* Mobile Language Switcher */}
-          <div className="md:hidden flex items-center gap-1 bg-white/20 rounded-xl p-1.5">
+          <div className="md:hidden flex items-center gap-2">
+            {isAuthenticated && (
+              <button
+                onClick={logout}
+                className="bg-white/20 rounded-xl p-2 hover:bg-white/30 transition-colors"
+              >
+                <LogOut className="w-4 h-4 text-green-100" />
+              </button>
+            )}
+            <div className="flex items-center gap-1 bg-white/20 rounded-xl p-1.5">
             <Globe className="w-4 h-4 text-green-100" />
             <button
               onClick={() => setLanguage('en')}
@@ -77,6 +105,7 @@ const Header: React.FC = () => {
             >
               JP
             </button>
+          </div>
           </div>
         </div>
       </div>

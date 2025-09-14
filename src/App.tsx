@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useSearchParams } from 'react-router-dom';
 import { ChefHat, Plus, Trash2, Calendar, AlertTriangle, TrendingDown, Target, Settings, ShoppingCart } from 'lucide-react';
 import InventoryManager from './components/InventoryManager';
 import RecipeDatabase from './components/RecipeDatabase';
 import OptimizationEngine from './components/OptimizationEngine';
 import MealPlan from './components/MealPlan';
 import Header from './components/Header';
+import AuthModal from './components/auth/AuthModal';
+import SetPasswordPage from './components/auth/SetPasswordPage';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import { InventoryItem, Recipe, OptimizationResult } from './types';
 import { useLanguage } from './contexts/LanguageContext';
+import { useAuth } from './contexts/AuthContext';
 
-function App() {
+function MainApp() {
   const { t } = useLanguage();
+  const { isAuthenticated } = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState<'inventory' | 'recipes' | 'optimize' | 'plan'>('inventory');
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [inventory, setInventory] = useState<InventoryItem[]>([
     { id: '1', name: 'Eggs', quantity: 10, unit: 'pieces', daysLeft: 1, category: 'dairy' },
     { id: '2', name: 'Chicken Breast', quantity: 600, unit: 'g', daysLeft: 2, category: 'meat' },
@@ -80,6 +89,24 @@ function App() {
 
   const [optimizationResult, setOptimizationResult] = useState<OptimizationResult | null>(null);
 
+  // URL パラメータから認証モードを取得
+  useEffect(() => {
+    const authParam = searchParams.get('auth');
+    if (authParam === 'login' || authParam === 'register') {
+      setAuthMode(authParam);
+      setShowAuthModal(true);
+      // URLパラメータをクリア
+      setSearchParams({});
+    }
+  }, [searchParams, setSearchParams]);
+
+  // 認証状態が変わったらモーダルを閉じる
+  useEffect(() => {
+    if (isAuthenticated) {
+      setShowAuthModal(false);
+    }
+  }, [isAuthenticated]);
+
   const tabs = [
     { id: 'inventory', label: t('nav.inventory'), icon: ShoppingCart },
     { id: 'recipes', label: t('nav.recipes'), icon: ChefHat },
@@ -88,7 +115,8 @@ function App() {
   ] as const;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
       <Header />
       
       <div className="container mx-auto px-4 py-8">
@@ -150,7 +178,26 @@ function App() {
           )}
         </div>
       </div>
-    </div>
+      </div>
+
+      {/* Auth Modal */}
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)}
+        initialMode={authMode}
+      />
+    </ProtectedRoute>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/auth/setup-password" element={<SetPasswordPage />} />
+        <Route path="/*" element={<MainApp />} />
+      </Routes>
+    </Router>
   );
 }
 
