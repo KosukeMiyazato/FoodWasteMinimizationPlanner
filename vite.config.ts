@@ -13,6 +13,8 @@ export default defineConfig({
   },
   define: {
     global: 'globalThis',
+    'global.Buffer': 'Buffer',
+    'process.env': '{}',
   },
   optimizeDeps: {
     exclude: ['lucide-react'],
