@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Lock, Eye, EyeOff, Key, CheckCircle, XCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { validateToken } from '../../utils/mockAuth';
 
 interface SetPasswordFormProps {
   token: string;
@@ -15,6 +16,16 @@ const SetPasswordForm: React.FC<SetPasswordFormProps> = ({ token, onComplete }) 
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [tokenValid, setTokenValid] = useState<boolean | null>(null);
+
+  // トークンの有効性をチェック
+  useEffect(() => {
+    const isValid = validateToken(token);
+    setTokenValid(isValid);
+    if (!isValid) {
+      setMessage({ type: 'error', text: '無効または期限切れのリンクです' });
+    }
+  }, [token]);
 
   // パスワード強度チェック
   const passwordChecks = {
@@ -28,11 +39,31 @@ const SetPasswordForm: React.FC<SetPasswordFormProps> = ({ token, onComplete }) 
   const isPasswordValid = Object.values(passwordChecks).every(check => check);
   const passwordsMatch = password === confirmPassword && password.length > 0;
 
+  if (tokenValid === false) {
+    return (
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-red-200 max-w-md w-full">
+        <div className="text-center">
+          <div className="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <XCircle className="w-8 h-8 text-red-600" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">エラー</h2>
+          <p className="text-red-600 mb-6">無効または期限切れのリンクです</p>
+          <button
+            onClick={() => window.location.href = '/'}
+            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-300"
+          >
+            ホームに戻る
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!isPasswordValid) {
-      setMessage({ type: 'error', text: 'パスワードが要件を満たしていません' });
+    if (password.length < 6) {
+      setMessage({ type: 'error', text: 'パスワードは6文字以上で入力してください' });
       return;
     }
 
@@ -164,7 +195,7 @@ const SetPasswordForm: React.FC<SetPasswordFormProps> = ({ token, onComplete }) 
 
         <button
           type="submit"
-          disabled={loading || !isPasswordValid || !passwordsMatch}
+          disabled={loading || password.length < 6 || !passwordsMatch}
           className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-xl font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {loading ? (

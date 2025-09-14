@@ -18,13 +18,6 @@ const SetPasswordPage: React.FC = () => {
       return;
     }
 
-    // トークン形式の基本チェック
-    const tokenParts = tokenParam.split('.');
-    if (tokenParts.length !== 3) {
-      setError('無効なリンクです');
-      return;
-    }
-
     setToken(tokenParam);
   }, []);
 

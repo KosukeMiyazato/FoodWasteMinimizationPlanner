@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, AuthContextType, AuthResponse } from '../types/auth';
-import { loginUser, registerUser, setPassword, getCurrentUser } from '../utils/auth';
+import { loginUser, registerUser, setPassword, getCurrentUser, logoutUser } from '../utils/mockAuth';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -9,21 +9,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // ページ読み込み時にトークンから ユーザー情報を復元
-    const initAuth = async () => {
+    // ページ読み込み時にローカルストレージからユーザー情報を復元
+    const initAuth = () => {
       try {
-        const token = localStorage.getItem('auth_token');
-        if (token) {
-          const currentUser = await getCurrentUser(token);
-          if (currentUser) {
-            setUser(currentUser);
-          } else {
-            localStorage.removeItem('auth_token');
-          }
+        const currentUser = getCurrentUser();
+        if (currentUser) {
+          setUser(currentUser);
         }
       } catch (error) {
         console.error('Auth initialization error:', error);
-        localStorage.removeItem('auth_token');
       } finally {
         setLoading(false);
       }
@@ -36,9 +30,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     try {
       const result = await loginUser(email, password);
       
-      if (result.success && result.user && result.token) {
+      if (result.success && result.user) {
         setUser(result.user);
-        localStorage.setItem('auth_token', result.token);
       }
       
       return result;
@@ -68,7 +61,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('auth_token');
+    logoutUser();
   };
 
   const value: AuthContextType = {
