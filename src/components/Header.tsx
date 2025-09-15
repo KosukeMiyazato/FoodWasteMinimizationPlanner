@@ -1,7 +1,8 @@
 import React from 'react';
-import { Leaf, TrendingDown, Globe, LogOut, User } from 'lucide-react';
+import { TrendingDown, Globe, LogOut, User } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
+import appIcon from '../assets/app-icon.png';
 
 const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
@@ -12,8 +13,12 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-white/20 p-3 rounded-xl backdrop-blur-sm">
-              <Leaf className="w-8 h-8" />
+            <div className="bg-white/20 p-2 rounded-xl backdrop-blur-sm">
+              <img 
+                src={appIcon} 
+                alt="Food Waste Minimization Planner" 
+                className="w-10 h-10 object-contain"
+              />
             </div>
             <div>
               <h1 className="text-3xl font-bold">{t('app.title')}</h1>
