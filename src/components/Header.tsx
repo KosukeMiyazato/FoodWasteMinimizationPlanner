@@ -1,12 +1,23 @@
 import React from 'react';
-import { TrendingDown, Globe, LogOut, User } from 'lucide-react';
+import { TrendingDown, Globe, User, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import appIcon from '../assets/app-icon.png';
 
 const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = React.useState(false);
+
+  const languages = [
+    { code: 'en', label: 'English', flag: '🇺🇸' },
+    { code: 'ja', label: '日本語', flag: '🇯🇵' },
+    { code: 'it', label: 'Italiano', flag: '🇮🇹' }
+  ];
+
+  const currentLanguage = languages.find(lang => lang.code === language);
 
   return (
     <header className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white shadow-xl">
@@ -27,46 +38,51 @@ const Header: React.FC = () => {
           </div>
           
           <div className="hidden md:flex items-center gap-4">
-            {/* Language Switcher */}
-            <div className="flex items-center gap-1 bg-white/20 rounded-xl p-2">
-              <Globe className="w-4 h-4 text-green-100" />
+            {/* Language Dropdown */}
+            <div className="relative">
               <button
-                onClick={() => setLanguage('en')}
-                className={`px-2 py-1 rounded-lg text-sm font-medium transition-all ${
-                  language === 'en' 
-                    ? 'bg-white text-green-600' 
-                    : 'text-green-100 hover:bg-white/20'
-                }`}
+                onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+                className="flex items-center gap-2 bg-white/20 rounded-xl px-3 py-2 hover:bg-white/30 transition-colors"
               >
-                EN
+                <Globe className="w-4 h-4 text-green-100" />
+                <span className="text-sm font-medium text-white">
+                  {currentLanguage?.flag} {currentLanguage?.code.toUpperCase()}
+                </span>
+                <ChevronDown className={`w-4 h-4 text-green-100 transition-transform ${
+                  isLanguageDropdownOpen ? 'rotate-180' : ''
+                }`} />
               </button>
-              <button
-                onClick={() => setLanguage('ja')}
-                className={`px-2 py-1 rounded-lg text-sm font-medium transition-all ${
-                  language === 'ja' 
-                    ? 'bg-white text-green-600' 
-                    : 'text-green-100 hover:bg-white/20'
-                }`}
-              >
-                日本語
-              </button>
+              
+              {isLanguageDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 py-2 min-w-[140px] z-50">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code as any);
+                        setIsLanguageDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition-colors flex items-center gap-2 ${
+                        language === lang.code ? 'bg-green-50 text-green-700 font-medium' : 'text-gray-700'
+                      }`}
+                    >
+                      <span>{lang.flag}</span>
+                      <span>{lang.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
             
             {/* User Menu */}
             {isAuthenticated && user && (
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 bg-white/20 rounded-xl px-3 py-2">
-                  <User className="w-4 h-4 text-green-100" />
-                  <span className="text-green-100 text-sm">{user.email}</span>
-                </div>
-                <button
-                  onClick={logout}
-                  className="flex items-center gap-2 bg-white/20 rounded-xl px-3 py-2 hover:bg-white/30 transition-colors"
-                >
-                  <LogOut className="w-4 h-4 text-green-100" />
-                  <span className="text-green-100 text-sm">ログアウト</span>
-                </button>
-              </div>
+              <button
+                onClick={() => navigate('/account')}
+                className="bg-white/20 rounded-full p-3 hover:bg-white/30 transition-colors"
+                title={t('account.title')}
+              >
+                <User className="w-6 h-6 text-white" />
+              </button>
             )}
             
             <div className="text-center">
@@ -82,35 +98,47 @@ const Header: React.FC = () => {
           <div className="md:hidden flex items-center gap-2">
             {isAuthenticated && (
               <button
-                onClick={logout}
+                onClick={() => navigate('/account')}
                 className="bg-white/20 rounded-xl p-2 hover:bg-white/30 transition-colors"
+                title={t('account.title')}
               >
-                <LogOut className="w-4 h-4 text-green-100" />
+                <User className="w-4 h-4 text-green-100" />
               </button>
             )}
-            <div className="flex items-center gap-1 bg-white/20 rounded-xl p-1.5">
-            <Globe className="w-4 h-4 text-green-100" />
-            <button
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded text-xs font-medium transition-all min-w-[32px] ${
-                language === 'en' 
-                  ? 'bg-white text-green-600' 
-                  : 'text-green-100 hover:bg-white/20'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLanguage('ja')}
-              className={`px-1.5 py-1 rounded text-xs font-medium transition-all min-w-[32px] ${
-                language === 'ja' 
-                  ? 'bg-white text-green-600' 
-                  : 'text-green-100 hover:bg-white/20'
-              }`}
-            >
-              JP
-            </button>
-          </div>
+            <div className="relative">
+              <button
+                onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+                className="flex items-center gap-1 bg-white/20 rounded-xl px-2 py-1.5 hover:bg-white/30 transition-colors"
+              >
+                <Globe className="w-4 h-4 text-green-100" />
+                <span className="text-xs font-medium text-white">
+                  {currentLanguage?.flag}
+                </span>
+                <ChevronDown className={`w-3 h-3 text-green-100 transition-transform ${
+                  isLanguageDropdownOpen ? 'rotate-180' : ''
+                }`} />
+              </button>
+              
+              {isLanguageDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 py-2 min-w-[120px] z-50">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => {
+                        setLanguage(lang.code as any);
+                        setIsLanguageDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-xs hover:bg-gray-100 transition-colors flex items-center gap-2 ${
+                        language === lang.code ? 'bg-green-50 text-green-700 font-medium' : 'text-gray-700'
+                      }`}
+                    >
+                      <span>{lang.flag}</span>
+                      <span>{lang.code.toUpperCase()}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
