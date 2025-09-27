@@ -9,6 +9,7 @@ import Header from './components/Header';
 import AuthModal from './components/auth/AuthModal';
 import SetPasswordPage from './components/auth/SetPasswordPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import AccountManagement from './components/AccountManagement';
 import { InventoryItem, Recipe, OptimizationResult } from './types';
 import { useLanguage } from './contexts/LanguageContext';
 import { useAuth } from './contexts/AuthContext';
@@ -195,6 +196,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/auth/setup-password" element={<SetPasswordPage />} />
+        <Route path="/account" element={<AccountManagement />} />
         <Route path="/*" element={<MainApp />} />
       </Routes>
     </Router>

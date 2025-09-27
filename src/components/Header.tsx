@@ -1,11 +1,13 @@
 import React from 'react';
-import { Leaf, TrendingDown, Globe, LogOut, User } from 'lucide-react';
+import { Leaf, TrendingDown, Globe, User } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white shadow-xl">
@@ -49,19 +51,13 @@ const Header: React.FC = () => {
             
             {/* User Menu */}
             {isAuthenticated && user && (
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 bg-white/20 rounded-xl px-3 py-2">
-                  <User className="w-4 h-4 text-green-100" />
-                  <span className="text-green-100 text-sm">{user.email}</span>
-                </div>
-                <button
-                  onClick={logout}
-                  className="flex items-center gap-2 bg-white/20 rounded-xl px-3 py-2 hover:bg-white/30 transition-colors"
-                >
-                  <LogOut className="w-4 h-4 text-green-100" />
-                  <span className="text-green-100 text-sm">ログアウト</span>
-                </button>
-              </div>
+              <button
+                onClick={() => navigate('/account')}
+                className="bg-white/20 rounded-full p-3 hover:bg-white/30 transition-colors"
+                title="アカウント管理"
+              >
+                <User className="w-6 h-6 text-white" />
+              </button>
             )}
             
             <div className="text-center">
@@ -77,10 +73,11 @@ const Header: React.FC = () => {
           <div className="md:hidden flex items-center gap-2">
             {isAuthenticated && (
               <button
-                onClick={logout}
+                onClick={() => navigate('/account')}
                 className="bg-white/20 rounded-xl p-2 hover:bg-white/30 transition-colors"
+                title="アカウント管理"
               >
-                <LogOut className="w-4 h-4 text-green-100" />
+                <User className="w-4 h-4 text-green-100" />
               </button>
             )}
             <div className="flex items-center gap-1 bg-white/20 rounded-xl p-1.5">
