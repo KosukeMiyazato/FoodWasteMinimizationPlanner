@@ -1,15 +1,9 @@
 import React from 'react';
-<<<<<<< HEAD
-import { Leaf, TrendingDown, Globe, User, ChevronDown } from 'lucide-react';
+import { TrendingDown, Globe, User, ChevronDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-=======
-import { TrendingDown, Globe, LogOut, User } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
-import { useAuth } from '../contexts/AuthContext';
 import appIcon from '../assets/app-icon.png';
->>>>>>> 4915b166d5bfbcdb712ce609e189216ecc881c70
 
 const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
