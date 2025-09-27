@@ -54,7 +54,7 @@ const Header: React.FC = () => {
               <button
                 onClick={() => navigate('/account')}
                 className="bg-white/20 rounded-full p-3 hover:bg-white/30 transition-colors"
-                title="アカウント管理"
+                title={t('account.title')}
               >
                 <User className="w-6 h-6 text-white" />
               </button>
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
               <button
                 onClick={() => navigate('/account')}
                 className="bg-white/20 rounded-xl p-2 hover:bg-white/30 transition-colors"
-                title="アカウント管理"
+                title={t('account.title')}
               >
                 <User className="w-4 h-4 text-green-100" />
               </button>

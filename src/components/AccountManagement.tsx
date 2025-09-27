@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { User, Mail, Lock, Eye, EyeOff, Save, ArrowLeft, Shield, Calendar, CheckCircle, XCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 
 const AccountManagement: React.FC = () => {
   const { user, logout } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'profile' | 'security'>('profile');
   const [isChangingPassword, setIsChangingPassword] = useState(false);
@@ -37,17 +39,17 @@ const AccountManagement: React.FC = () => {
     e.preventDefault();
     
     if (!passwordForm.currentPassword) {
-      setMessage({ type: 'error', text: '現在のパスワードを入力してください' });
+      setMessage({ type: 'error', text: t('account.enterCurrentPasswordError') });
       return;
     }
 
     if (passwordForm.newPassword.length < 6) {
-      setMessage({ type: 'error', text: '新しいパスワードは6文字以上で入力してください' });
+      setMessage({ type: 'error', text: t('account.newPasswordLengthError') });
       return;
     }
 
     if (!passwordsMatch) {
-      setMessage({ type: 'error', text: 'パスワードが一致しません' });
+      setMessage({ type: 'error', text: t('account.passwordMismatchError') });
       return;
     }
 
@@ -65,11 +67,11 @@ const AccountManagement: React.FC = () => {
         newPassword: passwordForm.newPassword
       });
 
-      setMessage({ type: 'success', text: 'パスワードが正常に変更されました' });
+      setMessage({ type: 'success', text: t('account.passwordChangeSuccess') });
       setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
       setIsChangingPassword(false);
     } catch (error) {
-      setMessage({ type: 'error', text: 'パスワード変更に失敗しました' });
+      setMessage({ type: 'error', text: t('account.passwordChangeFailed') });
     } finally {
       setLoading(false);
     }
@@ -86,12 +88,12 @@ const AccountManagement: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600 mb-4">ユーザー情報が見つかりません</p>
+          <p className="text-gray-600 mb-4">{t('account.userNotFound')}</p>
           <button
             onClick={() => navigate('/')}
             className="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition-colors"
           >
-            ホームに戻る
+            {t('account.backToHome')}
           </button>
         </div>
       </div>
@@ -111,8 +113,8 @@ const AccountManagement: React.FC = () => {
               <ArrowLeft className="w-6 h-6" />
             </button>
             <div>
-              <h1 className="text-2xl font-bold">アカウント管理</h1>
-              <p className="text-green-100 text-sm">プロフィールとセキュリティ設定</p>
+              <h1 className="text-2xl font-bold">{t('account.title')}</h1>
+              <p className="text-green-100 text-sm">{t('account.subtitle')}</p>
             </div>
           </div>
         </div>
@@ -132,7 +134,7 @@ const AccountManagement: React.FC = () => {
                 }`}
               >
                 <User className="w-5 h-5" />
-                プロフィール
+                {t('account.profile')}
               </button>
               <button
                 onClick={() => setActiveTab('security')}
@@ -143,7 +145,7 @@ const AccountManagement: React.FC = () => {
                 }`}
               >
                 <Shield className="w-5 h-5" />
-                セキュリティ
+                {t('account.security')}
               </button>
             </div>
           </div>
@@ -167,15 +169,15 @@ const AccountManagement: React.FC = () => {
                   <User className="w-10 h-10 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800">プロフィール情報</h2>
-                  <p className="text-gray-600">アカウントの基本情報を確認できます</p>
+                  <h2 className="text-2xl font-bold text-gray-800">{t('account.profileInfo')}</h2>
+                  <p className="text-gray-600">{t('account.profileDesc')}</p>
                 </div>
               </div>
 
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    ユーザーID
+                    {t('account.userId')}
                   </label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -187,13 +189,13 @@ const AccountManagement: React.FC = () => {
                     />
                   </div>
                   <p className="text-xs text-gray-500 mt-1">
-                    ユーザーIDは変更できません
+                    {t('account.userIdDesc')}
                   </p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    アカウント作成日
+                    {t('account.accountCreated')}
                   </label>
                   <div className="relative">
                     <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -209,7 +211,7 @@ const AccountManagement: React.FC = () => {
                 {user.lastLoginAt && (
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      最終ログイン
+                      {t('account.lastLogin')}
                     </label>
                     <div className="relative">
                       <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -234,8 +236,8 @@ const AccountManagement: React.FC = () => {
                   <Shield className="w-10 h-10 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800">セキュリティ設定</h2>
-                  <p className="text-gray-600">パスワードの変更ができます</p>
+                  <h2 className="text-2xl font-bold text-gray-800">{t('account.securitySettings')}</h2>
+                  <p className="text-gray-600">{t('account.securityDesc')}</p>
                 </div>
               </div>
 
@@ -244,25 +246,25 @@ const AccountManagement: React.FC = () => {
                   <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="font-semibold text-gray-800 mb-2">パスワード</h3>
-                        <p className="text-gray-600 text-sm">最後に変更されたのは30日前です</p>
+                        <h3 className="font-semibold text-gray-800 mb-2">{t('account.password')}</h3>
+                        <p className="text-gray-600 text-sm">{t('account.passwordLastChanged')}</p>
                       </div>
                       <button
                         onClick={() => setIsChangingPassword(true)}
                         className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-6 py-3 rounded-xl font-medium hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-green-200"
                       >
-                        パスワードを変更
+                        {t('account.changePassword')}
                       </button>
                     </div>
                   </div>
 
                   <div className="bg-blue-50 p-6 rounded-xl border border-blue-200">
-                    <h4 className="font-medium text-blue-800 mb-3">セキュリティのヒント</h4>
+                    <h4 className="font-medium text-blue-800 mb-3">{t('account.securityTips')}</h4>
                     <ul className="text-sm text-blue-700 space-y-2">
-                      <li>• 定期的にパスワードを変更してください</li>
-                      <li>• 他のサービスと同じパスワードは使用しないでください</li>
-                      <li>• 8文字以上で大文字・小文字・数字・記号を含めてください</li>
-                      <li>• 個人情報に関連する文字列は避けてください</li>
+                      <li>{t('account.tip1')}</li>
+                      <li>{t('account.tip2')}</li>
+                      <li>{t('account.tip3')}</li>
+                      <li>{t('account.tip4')}</li>
                     </ul>
                   </div>
                 </div>
@@ -270,7 +272,7 @@ const AccountManagement: React.FC = () => {
                 <form onSubmit={handlePasswordChange} className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      現在のパスワード
+                      {t('account.currentPassword')}
                     </label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -279,7 +281,7 @@ const AccountManagement: React.FC = () => {
                         value={passwordForm.currentPassword}
                         onChange={(e) => setPasswordForm(prev => ({ ...prev, currentPassword: e.target.value }))}
                         className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        placeholder="現在のパスワードを入力"
+                        placeholder={t('account.enterCurrentPassword')}
                         required
                       />
                       <button
@@ -294,7 +296,7 @@ const AccountManagement: React.FC = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      新しいパスワード
+                      {t('account.newPassword')}
                     </label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -303,7 +305,7 @@ const AccountManagement: React.FC = () => {
                         value={passwordForm.newPassword}
                         onChange={(e) => setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))}
                         className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        placeholder="新しいパスワードを入力"
+                        placeholder={t('account.enterNewPassword')}
                         required
                       />
                       <button
@@ -318,7 +320,7 @@ const AccountManagement: React.FC = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      新しいパスワード（確認）
+                      {t('account.confirmPassword')}
                     </label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -327,7 +329,7 @@ const AccountManagement: React.FC = () => {
                         value={passwordForm.confirmPassword}
                         onChange={(e) => setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
                         className="w-full pl-10 pr-12 py-3 rounded-xl border border-gray-300 focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                        placeholder="新しいパスワードを再入力"
+                        placeholder={t('account.reenterNewPassword')}
                         required
                       />
                       <button
@@ -342,31 +344,31 @@ const AccountManagement: React.FC = () => {
 
                   {/* パスワード要件 */}
                   <div className="bg-gray-50 p-4 rounded-xl">
-                    <h4 className="font-medium text-gray-700 mb-3">パスワード要件</h4>
+                    <h4 className="font-medium text-gray-700 mb-3">{t('account.passwordRequirements')}</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
                       <div className={`flex items-center gap-2 ${passwordChecks.length ? 'text-green-600' : 'text-gray-500'}`}>
                         {passwordChecks.length ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                        8文字以上
+                        {t('account.minLength')}
                       </div>
                       <div className={`flex items-center gap-2 ${passwordChecks.uppercase ? 'text-green-600' : 'text-gray-500'}`}>
                         {passwordChecks.uppercase ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                        大文字を含む
+                        {t('account.uppercase')}
                       </div>
                       <div className={`flex items-center gap-2 ${passwordChecks.lowercase ? 'text-green-600' : 'text-gray-500'}`}>
                         {passwordChecks.lowercase ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                        小文字を含む
+                        {t('account.lowercase')}
                       </div>
                       <div className={`flex items-center gap-2 ${passwordChecks.number ? 'text-green-600' : 'text-gray-500'}`}>
                         {passwordChecks.number ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                        数字を含む
+                        {t('account.number')}
                       </div>
                       <div className={`flex items-center gap-2 ${passwordChecks.special ? 'text-green-600' : 'text-gray-500'}`}>
                         {passwordChecks.special ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                        特殊文字を含む
+                        {t('account.special')}
                       </div>
                       <div className={`flex items-center gap-2 ${passwordsMatch ? 'text-green-600' : 'text-gray-500'}`}>
                         {passwordsMatch ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
-                        パスワードが一致
+                        {t('account.passwordsMatch')}
                       </div>
                     </div>
                   </div>
@@ -382,7 +384,7 @@ const AccountManagement: React.FC = () => {
                       ) : (
                         <>
                           <Save className="w-5 h-5" />
-                          パスワードを変更
+                          {t('account.changePassword')}
                         </>
                       )}
                     </button>
@@ -395,7 +397,7 @@ const AccountManagement: React.FC = () => {
                       }}
                       className="bg-gray-300 text-gray-700 px-6 py-3 rounded-xl font-medium hover:bg-gray-400 transition-colors"
                     >
-                      キャンセル
+                      {t('common.cancel')}
                     </button>
                   </div>
                 </form>
