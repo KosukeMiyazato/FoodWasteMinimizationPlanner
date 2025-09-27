@@ -47,6 +47,16 @@ const Header: React.FC = () => {
               >
                 日本語
               </button>
+              <button
+                onClick={() => setLanguage('it')}
+                className={`px-2 py-1 rounded-lg text-sm font-medium transition-all ${
+                  language === 'it' 
+                    ? 'bg-white text-green-600' 
+                    : 'text-green-100 hover:bg-white/20'
+                }`}
+              >
+                IT
+              </button>
             </div>
             
             {/* User Menu */}
@@ -101,6 +111,16 @@ const Header: React.FC = () => {
               }`}
             >
               JP
+            </button>
+            <button
+              onClick={() => setLanguage('it')}
+              className={`px-1.5 py-1 rounded text-xs font-medium transition-all min-w-[32px] ${
+                language === 'it' 
+                  ? 'bg-white text-green-600' 
+                  : 'text-green-100 hover:bg-white/20'
+              }`}
+            >
+              IT
             </button>
           </div>
           </div>
